@@ -117,6 +117,10 @@ export const transformLazyShow = createStructuralDirectiveTransform(
     })
 
     const _context = Object.assign({}, context)
+    _context.replaceNode = (node) => {
+      _context.parent!.children[_context.childIndex] = _context.currentNode = node
+    }
+
     context.replaceNode(<TemplateChildNode><unknown>wrapNode)
 
     return () => {
