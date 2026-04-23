@@ -3,9 +3,9 @@ import { ssrRenderAttrs as _ssrRenderAttrs } from "vue/server-renderer"
 
 export function ssrRender(_ctx, _push, _parent, _attrs) {
   if (_ctx.foo) {
-    _push(`<span${_ssrRenderAttrs(_mergeProps(_attrs, _attrs))}>`)
+    _push(`<span${_ssrRenderAttrs(_mergeProps(_attrs, _attrs))}><span>Foo</span>`)
     if (_ctx.bar) {
-      _push(`<span>Hello</span>`)
+      _push(`<span>Bar</span>`)
     } else {
       _push(`<!---->`)
     }

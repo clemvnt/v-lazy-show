@@ -4,6 +4,6 @@ const _hoisted_1 = { key: 0 }
 
 export function render(_ctx, _cache) {
   return (_ctx.bar)
-    ? (_openBlock(), _createElementBlock("span", _hoisted_1, "Hello"))
+    ? (_openBlock(), _createElementBlock("span", _hoisted_1, "Bar"))
     : _createCommentVNode("v-if", true)
 }

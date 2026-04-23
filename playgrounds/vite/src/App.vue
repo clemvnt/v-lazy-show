@@ -4,7 +4,7 @@ import HelloWorld from './HelloWorld.vue'
 
 const enabled = ref(false)
 
-const foo = ref(true)
+const innerIf = ref(true)
 
 function handler(msg?: string) {
   // eslint-disable-next-line no-console
@@ -28,7 +28,7 @@ function handler(msg?: string) {
   <hr>
   <div v-lazy-show="enabled">
     <HelloWorld msg="v-lazy-show" :handler="handler" />
-    <div v-if="foo">
+    <div v-if="innerIf">
       <HelloWorld msg="inner v-if in v-lazy-show" />
     </div>
   </div>
