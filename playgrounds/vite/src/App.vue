@@ -6,6 +6,8 @@ const enabled = ref(false)
 
 const innerIf = ref(true)
 
+const innerElseIf = ref(false)
+
 function handler(msg?: string) {
   // eslint-disable-next-line no-console
   console.log(msg || '111')
@@ -30,6 +32,12 @@ function handler(msg?: string) {
     <HelloWorld msg="v-lazy-show" :handler="handler" />
     <div v-if="innerIf">
       <HelloWorld msg="inner v-if in v-lazy-show" />
+    </div>
+    <div v-else-if="innerElseIf">
+      <HelloWorld msg="inner v-else-if in v-lazy-show" />
+    </div>
+    <div v-else>
+      <HelloWorld msg="inner v-else in v-lazy-show" />
     </div>
   </div>
   <div v-show="enabled">
