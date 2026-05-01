@@ -120,6 +120,28 @@ export const transformLazyShow = createStructuralDirectiveTransform(
     _context.replaceNode = (node) => {
       _context.parent!.children[_context.childIndex] = _context.currentNode = node
     }
+    _context.removeNode = (node) => {
+      const list = _context.parent!.children
+      const removalIndex = node
+        ? list.indexOf(node)
+        : _context.currentNode
+          ? _context.childIndex
+          : -1
+
+      if (removalIndex < 0)
+        throw new Error('node being removed is not a child of current parent')
+
+      if (!node || node === _context.currentNode) {
+        _context.currentNode = null
+        _context.onNodeRemoved()
+      }
+      else if (_context.childIndex > removalIndex) {
+        _context.childIndex--
+        _context.onNodeRemoved()
+      }
+
+      list.splice(removalIndex, 1)
+    }
 
     context.replaceNode(<TemplateChildNode><unknown>wrapNode)
 
