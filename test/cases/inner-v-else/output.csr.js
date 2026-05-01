@@ -5,7 +5,7 @@ export function render(_ctx, _cache) {
     ? (_cache._lazyshow1 = true, (_openBlock(), _createElementBlock(_Fragment, null, [
         _withDirectives(_createElementVNode("span", null, [
           _createElementVNode("span", null, "Foo"),
-          (_ctx.bar)
+          (_ctx.innerIf)
             ? (_openBlock(), _createElementBlock("span", { key: 0 }, "If"))
             : (_openBlock(), _createElementBlock("span", { key: 1 }, "Else"))
         ], 512 /* NEED_PATCH */), [

@@ -7,9 +7,7 @@ export function render(_ctx, _cache) {
           _createElementVNode("span", null, "Foo"),
           (_ctx.innerIf)
             ? (_openBlock(), _createElementBlock("span", { key: 0 }, "If"))
-            : (_ctx.innerElseIf)
-              ? (_openBlock(), _createElementBlock("span", { key: 1 }, "Else If"))
-              : (_openBlock(), _createElementBlock("span", { key: 2 }, "Else"))
+            : _createCommentVNode("v-if", true)
         ], 512 /* NEED_PATCH */), [
           [_vShow, _ctx.foo]
         ])

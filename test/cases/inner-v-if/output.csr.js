@@ -4,9 +4,8 @@ export function render(_ctx, _cache) {
   return (_cache._lazyshow1 || _ctx.foo)
     ? (_cache._lazyshow1 = true, (_openBlock(), _createElementBlock(_Fragment, null, [
         _withDirectives(_createElementVNode("span", null, [
-          _createElementVNode("span", null, "Foo"),
-          (_ctx.bar)
-            ? (_openBlock(), _createElementBlock("span", { key: 0 }, "Bar"))
+          (_ctx.innerIf)
+            ? (_openBlock(), _createElementBlock("span", { key: 0 }, "If"))
             : _createCommentVNode("v-if", true)
         ], 512 /* NEED_PATCH */), [
           [_vShow, _ctx.foo]

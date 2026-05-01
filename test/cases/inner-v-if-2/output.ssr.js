@@ -7,7 +7,7 @@ export function ssrRender(_ctx, _push, _parent, _attrs) {
     if (_ctx.innerIf) {
       _push(`<span>If</span>`)
     } else {
-      _push(`<span>Else</span>`)
+      _push(`<!---->`)
     }
     _push(`</span>`)
   } else {

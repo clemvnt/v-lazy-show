@@ -1,11 +1,11 @@
-import { createVNode as _createVNode, mergeProps as _mergeProps, openBlock as _openBlock, createBlock as _createBlock, createCommentVNode as _createCommentVNode } from "vue"
+import { mergeProps as _mergeProps, createVNode as _createVNode } from "vue"
 import { ssrRenderAttrs as _ssrRenderAttrs } from "vue/server-renderer"
 
 export function ssrRender(_ctx, _push, _parent, _attrs) {
   if (_ctx.foo) {
-    _push(`<span${_ssrRenderAttrs(_mergeProps(_attrs, _attrs))}><span>Foo</span>`)
-    if (_ctx.bar) {
-      _push(`<span>Bar</span>`)
+    _push(`<span${_ssrRenderAttrs(_mergeProps(_attrs, _attrs))}>`)
+    if (_ctx.innerIf) {
+      _push(`<span>If</span>`)
     } else {
       _push(`<!---->`)
     }

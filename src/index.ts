@@ -1,4 +1,4 @@
-import type { TemplateChildNode } from '@vue/compiler-core'
+import type { TemplateChildNode, TransformContext } from '@vue/compiler-core'
 import {
   CREATE_COMMENT,
   createCallExpression,
@@ -116,31 +116,41 @@ export const transformLazyShow = createStructuralDirectiveTransform(
       name: DIRECTIVE_NODES.SHOW,
     })
 
-    const _context = Object.assign({}, context)
-    _context.replaceNode = (node) => {
-      _context.parent!.children[_context.childIndex] = _context.currentNode = node
-    }
-    _context.removeNode = (node) => {
-      const list = _context.parent!.children
-      const removalIndex = node
-        ? list.indexOf(node)
-        : _context.currentNode
-          ? _context.childIndex
-          : -1
+    // Re-traverse nested children with a local transform context.
+    // `replaceNode()` and `removeNode()` are copied here because Vue's original
+    // implementations close over the outer compiler context, so reusing them
+    // would mutate the parent traversal instead of this nested subtree.
+    const _context: TransformContext = {
+      ...context,
+      childIndex: 0,
+      currentNode: node,
+      parent: node,
+      replaceNode(node) {
+        _context.parent!.children[_context.childIndex] = _context.currentNode = node
+      },
+      removeNode(node) {
+        const list = _context.parent!.children
+        const removalIndex = node
+          ? list.indexOf(node)
+          : _context.currentNode
+            ? _context.childIndex
+            : -1
 
-      if (removalIndex < 0)
-        throw new Error('node being removed is not a child of current parent')
+        if (!node || node === _context.currentNode) {
+        // current node removed
+          _context.currentNode = null
+          _context.onNodeRemoved()
+        }
+        else {
+          // sibling node removed
+          if (_context.childIndex > removalIndex) {
+            _context.childIndex--
+            _context.onNodeRemoved()
+          }
+        }
 
-      if (!node || node === _context.currentNode) {
-        _context.currentNode = null
-        _context.onNodeRemoved()
-      }
-      else if (_context.childIndex > removalIndex) {
-        _context.childIndex--
-        _context.onNodeRemoved()
-      }
-
-      list.splice(removalIndex, 1)
+        _context.parent!.children.splice(removalIndex, 1)
+      },
     }
 
     context.replaceNode(<TemplateChildNode><unknown>wrapNode)
